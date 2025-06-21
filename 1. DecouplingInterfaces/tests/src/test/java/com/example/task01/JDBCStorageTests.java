@@ -71,4 +71,17 @@ public class JDBCStorageTests {
         // Then
         then(result).isNull();
     }
+
+    @Test
+    public void GivenDatabaseWithEntries_WhenRetrievingOutOfBoundsIndex_ThenItMustReturnNull() {
+        // Given
+        storage.save("one");
+        storage.save("two");
+
+        // When
+        String result = storage.retrieve(5);
+
+        // Then
+        then(result).isNull();
+    }
 }
