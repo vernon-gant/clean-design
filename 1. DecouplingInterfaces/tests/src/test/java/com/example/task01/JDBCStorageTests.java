@@ -60,4 +60,15 @@ public class JDBCStorageTests {
             then(storage.retrieve(i)).isEqualTo(entries.get(i));
         }
     }
+
+    @Test
+    public void GivenEmptyDatabase_WhenRetrievingWithoutSaving_ThenItMustReturnNull() {
+        // Given
+
+        // When
+        String result = storage.retrieve(0);
+
+        // Then
+        then(result).isNull();
+    }
 }
