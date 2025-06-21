@@ -1,0 +1,3 @@
+rootProject.name = 'clear-design'
+
+include '1. DecouplingInterfaces:app', '1. DecouplingInterfaces:tests'
