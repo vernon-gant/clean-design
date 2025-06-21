@@ -96,4 +96,25 @@ public class JDBCStorageTests {
         // Then
         then(result).isEqualTo("");
     }
+
+    @Test
+    public void GivenDatabaseWithPreloadedEntries_WhenRetrievingThem_ThenTheyMustBeReturnableByCorrectIndex() throws SQLException {
+        // Given
+        try (PreparedStatement stmt = connection.prepareStatement("INSERT INTO storage (data) VALUES (?), (?), (?)")) {
+            stmt.setString(1, "pre1");
+            stmt.setString(2, "pre2");
+            stmt.setString(3, "pre3");
+            stmt.executeUpdate();
+        }
+
+        // When
+        String first = storage.retrieve(0);
+        String second = storage.retrieve(1);
+        String third = storage.retrieve(2);
+
+        // Then
+        then(first).isEqualTo("pre1");
+        then(second).isEqualTo("pre2");
+        then(third).isEqualTo("pre3");
+    }
 }
