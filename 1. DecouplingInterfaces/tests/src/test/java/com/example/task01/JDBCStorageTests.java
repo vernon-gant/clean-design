@@ -84,4 +84,16 @@ public class JDBCStorageTests {
         // Then
         then(result).isNull();
     }
+
+    @Test
+    public void GivenDatabase_WhenSavingEmptyString_ThenItMustBeRetrievable() {
+        // Given
+
+        // When
+        storage.save("");
+        String result = storage.retrieve(0);
+
+        // Then
+        then(result).isEqualTo("");
+    }
 }
