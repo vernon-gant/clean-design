@@ -3,5 +3,5 @@ plugins {
 }
 
 application {
-    mainClass = 'com.example.task01.Main'
+    mainClass = 'com.example.topic.Main'
 }

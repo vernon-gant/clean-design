@@ -1,4 +1,4 @@
-package com.example.task01;
+package com.example.topic01;
 
 public interface Storage {
     void save(String data);
