@@ -1,4 +1,4 @@
 rootProject.name = 'clean-design'
 
 include '1. DecouplingInterfaces:app', '1. DecouplingInterfaces:tests'
-include '2. WorkingCodeStillHasBugs:app'
+include '2. WorkingCodeStillHasBugs:app', '2. WorkingCodeStillHasBugs:tests'
