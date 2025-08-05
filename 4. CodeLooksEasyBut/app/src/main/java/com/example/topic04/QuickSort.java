@@ -12,18 +12,20 @@ public class QuickSort {
 
     /*
      * Precondition: P: arr.length > 0
+     *     The array should not be empty.
      *
      * Function body:
-     *     1. Check the precodntion in "if"
-     *     2. Call quickSort(arr, 0, arr.length - 1) to sort the entire array.
+     *     Calls quickSort(arr, 0, arr.length - 1) to sort the entire array.
      *
      * Postcondition: Q: arr is sorted
      *     The entire array is sorted in ascending order.
      *
      * Proof steps:
-     *     1. Precondition is checked
-     *     2. quickSort(arr, 0, arr.length - 1) is invoked and the precondition for it is always held because low is always 0 what is always less than entire array size which is at least 1.
-     *        High is always less than arr.length because "arr.length - 1" is passed as argument for "high"
+     *     1. quickSort(arr, 0, arr.length - 1) is invoked.
+     *     2. The precondition is satisfied:
+     *         - arr.lengt > 0 per function precondition
+     *         - low = 0 is valid as array length > 0.
+     *         - high = arr.length - 1 is valid because it is always less than arr.length.
      *     3. By correctness proof of quickSort(arr, low, high), the array is sorted.
      */
 
@@ -48,13 +50,11 @@ public class QuickSort {
      *
      * Proof steps:
      *     1. Initialization:
-     *        Base case low >= high trivially to satisfy the postcondition.
+     *        Base case low >= high to satisfy the postcondition.
      *
      *     2. Recursive step:
      *        - Correct partitioning ensures pivot is correctly placed.
-     *        - Preconditions for recursive calls are satisfied as shown in comments:
-     *            - quickSort(arr, low, pi - 1) : low >= 0 per function precondition. 0 <= pivot < arr.length per function postcondition
-     *            - quickSort(arr, pi + 1, high) :
+     *        - Preconditions for recursive calls are satisfied.
      *        - Recursively sorting partitions ensures subarrays are sorted.
      *
      *     3. Termination:
@@ -65,6 +65,7 @@ public class QuickSort {
     private static int partition(int[] arr, int low, int high) {
         int pivot = arr[high];
         int i = low;
+
         for (int j = low; j < high; j++) {
             if (arr[j] <= pivot) {
                 swap(arr, i, j);
@@ -79,21 +80,32 @@ public class QuickSort {
      * Precondition: P: arr.length > 0 and 0 <= low <= high < arr.length
      *
      * Function body:
-     *     - Select pivot as arr[high].
-     *     - Reorder elements so that elements less than or equal to pivot are on the left,
-     *       and elements greater than pivot are on the right.
+     *     1. Select pivot = arr[high]. (valid by precondition)
+     *     2. Initialize partition index i = low (valid as low <= high).
+     *     3. Loop through the array from low to high - 1:
+     *         a. If arr[j] <= pivot, swap arr[i] and arr[j] and increment i.
+     *         b. Ensures elements <= pivot are on the left of i.
+     *     4. Swap pivot element arr[high] with arr[i].
+     *        Pivot placed correctly at index i.
+     *     5. Return pivot index i.
      *
      * Postcondition: Q: arr[low..pivot-1] <= arr[pivot] <= arr[pivot+1..high]
      *
      * Loop invariant:
+     *     At any point during the loop execution:
      *     - Elements from low to (i-1) <= pivot.
      *     - Elements from i to (j-1) > pivot.
      *     - Element at high is pivot.
      *
      * Proof:
-     *     - Initialization: trivially true at the start.
-     *     - Maintenance: Each iteration maintains this condition.
-     *     - Termination: pivot is placed at correct index i.
+     *     - Initialization: Initially, no elements have been checked, trivially holds.
+     *     - Maintenance:
+     *         - At each iteration, if arr[j] <= pivot, it is swapped into the lower partition,
+     *           maintaining the invariant.
+     *         - Elements > pivot naturally move to the right partition.
+     *     - Termination:
+     *         - The loop ends when all elements have been checked, ensuring pivot placement correctness.
+     *         - Pivot element is placed exactly between elements <= pivot and elements > pivot.
      */
 
     private static void swap(int[] arr, int i, int j) {
